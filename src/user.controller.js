@@ -1,6 +1,9 @@
 const Joi = require("joi");
+const jwt = require("jsonwebtoken")
 const User = require('../user/user.model')
 const generateJwt = require('./generateJwt')
+
+const tokenSecret = process.env.JWT_SECRET
 
 const userSchema = Joi.object().keys({
   username: Joi.string().min(3).max(15).required(),
@@ -108,7 +111,21 @@ exports.Login = async (req, res)=>{
 
 exports.Reset = async (req, res)=>{
   try {
-    
+    const token = req.cookies.authToken
+
+    const result = jwt.verify(token, tokenSecret, (err, decoded)=>{
+      if (err) {
+        return err
+      }
+      return {
+        username: decoded.username,
+        status: true
+      }
+    })
+
+    if (result.status) {
+      const user = await User.find(result.username)
+    }
   } catch (error) {
     console.error("Password Reset Error", error)
     return res.status(500).json({

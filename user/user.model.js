@@ -28,6 +28,16 @@ class User {
     return user
   }
 
+  static remove(username) {
+    let credentials = require('../credentials.json')
+    let userIndex = credentials.findIndex((user)=>{
+      return user.username === username
+    })
+    let removed = credentials.splice(userIndex, 1)
+    fs.writeFile('./credentials.json', JSON.stringify(credentials), (err)=>{if (err) console.log(err)})
+    return removed
+  }
+
   static async hashPassword(password) {
     try {
       const salt = await bcrypt.genSalt(10);
