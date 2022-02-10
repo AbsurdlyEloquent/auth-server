@@ -1,0 +1,28 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CKUR Video Camera Security</title>
+    <link rel="stylesheet" href="/static/global.css">
+  </head>
+  <body>
+    <header>
+      <h1 id="logo">T</h1>
+        <div>
+          <h1>CKUR</h1>
+          <h3>Video Camera Security</h3>
+        </div>
+    </header>
+    <div class="header">
+      <h2>Welcome, <span id="user-greeting"></span></h2>
+      <a onclick="sessionStorage.clear();" href="/logout" class="submit logout">Log Out</a>
+    </div>
+    <main>
+      <a href="/ip-data" class="submit">IP Address Data</a>
+      <a href="/logs" class="submit">Logs</a>
+      <a href="/account" class="submit">Account Settings</a>
+    </main>
+	  <script src="/static/index.js"></script>
+  </body>
+</html>

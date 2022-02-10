@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CKUR Video Camera Security</title>
+    <link rel="stylesheet" href="/static/global.css">
+  </head>
+  <body>
+    <header>
+      <h1 id="logo">T</h1>
+        <div>
+          <h1>CKUR</h1>
+          <h3>Video Camera Security</h3>
+        </div>
+    </header>
+    <div class="header">
+      <a href="/" class="submit back-btn">&#8617 Back to Home</a>
+      <h2>IP Address Data</h2>
+      <a onclick="sessionStorage.clear();" href="/logout" class="submit logout">Log Out</a>
+    </div>
+    <main>
+      <div class="form-container">
+        <form id="ip-form" class="form" onsubmit="return false;">
+          <fieldset>
+            <legend>IP Address (IPV4)</legend>
+            <input type="radio" id="dhcp" name="ip" value="auto" checked>
+            <label for="dhcp">DHCP (automatic)</label>
+            <input type="radio" id="ip-manual" name="ip" value="manual">
+            <label for="ip-manual">Manual</label>
+            <p class="entry">
+              <label for="address">Address:</label>
+              <input type="text" id="address" name="ip" placeholder="000.000.0.000" disabled>
+            </p>
+            <p class="entry">
+              <label for="subnet">Subnet Mask:</label>
+              <input type="text" id="subnet" name="ip" placeholder="000.000.000.0" disabled>
+            </p>
+            <p class="entry">
+              <label for="gateway">Default Gateway:</label>
+              <input type="text" id="gateway" name="ip" placeholder="000.000.0.000" disabled>
+            </p>
+            <input type="submit" id="ip-submit" class="submit disabled" value="Apply" disabled>
+          </fieldset>
+        </form>
+      </div>
+      <div class="form-container">
+        <form id="port-form" class="form" onsubmit="return false;">
+          <fieldset>
+            <legend>Port Assignments</legend>
+            <input type="radio" id="auto" name="port" value="auto" checked>
+            <label for="auto">Automatic</label>
+            <input type="radio" id="port-manual" name="port" value="manual">
+            <label for="port-manual">Manual</label>
+            <p class="entry">
+              <label for="inbound">Inbound:</label>
+              <input type="text" id="inbound" name="port" placeholder="00000" disabled>
+            </p>
+            <p class="entry">
+              <label for="outbound">Outbound:</label>
+              <input type="text" id="outbound" name="port" placeholder="00000" disabled>
+            </p>
+            <input type="submit" id="port-submit" class="submit disabled" value="Apply" disabled>
+          </fieldset>
+        </form>
+      </div>
+    </main>
+	  <script src="/static/ip-data.js"></script>
+  </body>
+</html>

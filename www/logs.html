@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CKUR Video Camera Security</title>
+    <link rel="stylesheet" href="./global.css">
+  </head>
+  <body>
+    <header>
+      <h1 id="logo">T</h1>
+        <div>
+          <h1>CKUR</h1>
+          <h3>Video Camera Security</h3>
+        </div>
+    </header>
+    <div class="header">
+      <a href="/" class="submit back-btn">&#8617 Back to Home</a>
+      <h2>Logs</h2>
+      <a onclick="sessionStorage.clear();" href="/logout" class="submit logout">Log Out</a>
+    </div>
+    <main>
+      <div class="form-container">
+        <form id="ip-form" class="form" onsubmit="return false;">
+          <fieldset>
+            <legend>IDS Log</legend>
+            <input type="radio" id="ids-default" name="ids" value="default" checked>
+            <label for="ids-default">Last 14 Days</label>
+            <input type="radio" id="ids-manual" name="ids" value="manual">
+            <label for="ids-manual">Custom Date</label>
+            <p class="entry">
+              <label for="id-start-date">From:</label>
+              <input type="date" id="ids-start-date" name="ids" disabled>
+            </p>
+            <p class="entry">
+              <label for="ids-end-date">To:</label>
+              <input type="date" id="ids-end-date" name="ids" disabled>
+            </p>
+            <input type="submit" id="ids-submit" class="submit" value="Download to CSV">
+          </fieldset>
+        </form>
+      </div>
+      <div class="form-container">
+        <form id="port-form" class="form" onsubmit="return false;">
+          <fieldset>
+            <legend>Bandwidth Log</legend>
+            <input type="radio" id="bnd-default" name="bndw" value="default" checked>
+            <label for="bdn-default">Last 14 Days</label>
+            <input type="radio" id="bnd-manual" name="bndw" value="manual">
+            <label for="bnd-manual">Custom Date</label>
+            <p class="entry">
+              <label for="bnd-start-date">From:</label>
+              <input type="date" id="bnd-start-date" name="bndw" disabled>
+            </p>
+            <p class="entry">
+              <label for="bnd-end-date">To:</label>
+              <input type="date" id="bnd-end-date" name="bndw" disabled>
+            </p>
+            <input type="submit" id="bnd-submit" class="submit" value="Download to CSV">
+          </fieldset>
+        </form>
+      </div>
+    </main>
+	  <script src="/logs.js"></script>
+  </body>
+</html>

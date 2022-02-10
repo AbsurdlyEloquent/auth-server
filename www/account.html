@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CKUR Video Camera Security</title>
+    <link rel="stylesheet" href="/static/global.css">
+  </head>
+  <body>
+    <header>
+      <h1 id="logo">T</h1>
+        <div>
+          <h1>CKUR</h1>
+          <h3>Video Camera Security</h3>
+        </div>
+    </header>
+    <div class="header">
+      <h2>Account Settings</h2>
+      <a onclick="sessionStorage.clear();" href="/logout" class="submit logout">Log Out</a>
+    </div>
+    <main>
+      <div class="form-container">
+        <form id="account-reset-form" class="form" onsubmit="return false;">
+          <fieldset>
+            <legend>Reset Password</legend>
+            <p class="entry">
+              <label for="old-pwd">Old Password:</label>
+              <input type="text" id="old-pwd">
+            </p>
+            <p class="entry">
+              <label for="new-pwd">New Password:</label>
+              <input type="text" id="new-pwd">
+            </p>
+            <p class="entry">
+              <label for="repeat-new-pwd">Retype Password:</label>
+              <input type="text" id="repeat-new-pwd" name="ip">
+            </p>
+            <input type="submit" id="reset-submit" class="submit" value="Apply">
+          </fieldset>
+        </form>
+      </div>
+      <div class="form-container">
+        <form id="account-create-form" class="form" onsubmit="return false;">
+          <fieldset>
+            <legend>Create Account</legend>
+            <p class="entry">
+              <label for="username">Username:</label>
+              <input type="text" id="username">
+            </p>
+            <p class="entry">
+              <label for="user-pwd">Password:</label>
+              <input type="text" id="user-pwd">
+            </p>
+            <p class="entry">
+              <label for="repeat-pwd">Retype Password:</label>
+              <input type="text" id="repeat-pwd" name="ip">
+            </p>
+            <input type="checkbox" id="admin">
+            <label for="admin">Administrator</label>
+            <input type="submit" id="create-submit" class="submit" value="Create">
+          </fieldset>
+          <div id="message" style="display: none;">
+            <h3>Password must contain the following:</h3>
+            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+            <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+            <p id="number" class="invalid">A <b>number</b></p>
+            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+          </div>
+        </form>
+      </div>
+    </main>
+    <script src="/static/account.js"></script>
+  </body>
+</html>
