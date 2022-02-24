@@ -51,11 +51,11 @@
             </p>
             <p class="entry">
               <label for="user-pwd">Password:</label>
-              <input type="text" id="user-pwd">
+              <input type="password" id="user-pwd">
             </p>
             <p class="entry">
               <label for="repeat-pwd">Retype Password:</label>
-              <input type="text" id="repeat-pwd" name="ip">
+              <input type="password" id="repeat-pwd" name="ip">
             </p>
             <input type="checkbox" id="admin">
             <label for="admin">Administrator</label><br/>
@@ -65,6 +65,17 @@
         </form>
       </div>
     </main>
+    <div class="form-container">
+      <form id="account-delete-form" class="form" onsubmit="return false;">
+        <fieldset>
+          <legend>Remove Account</legend>
+          <p class="entry">
+            <label for="username-del">Username:</label>
+            <input type="text" id="username-del">
+          </p>
+        </fieldset>
+      </form>
+    </div>
 	  <script src="/static/admin.js"></script>
   </body>
 </html>
