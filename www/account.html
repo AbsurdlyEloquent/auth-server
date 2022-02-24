@@ -40,35 +40,6 @@
           </fieldset>
         </form>
       </div>
-      <div class="form-container">
-        <form id="account-create-form" class="form" onsubmit="return false;">
-          <fieldset>
-            <legend>Create Account</legend>
-            <p class="entry">
-              <label for="username">Username:</label>
-              <input type="text" id="username">
-            </p>
-            <p class="entry">
-              <label for="user-pwd">Password:</label>
-              <input type="text" id="user-pwd">
-            </p>
-            <p class="entry">
-              <label for="repeat-pwd">Retype Password:</label>
-              <input type="text" id="repeat-pwd" name="ip">
-            </p>
-            <input type="checkbox" id="admin">
-            <label for="admin">Administrator</label>
-            <input type="submit" id="create-submit" class="submit" value="Create">
-          </fieldset>
-          <div id="message" style="display: none;">
-            <h3>Password must contain the following:</h3>
-            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-            <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
-            <p id="number" class="invalid">A <b>number</b></p>
-            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
-          </div>
-        </form>
-      </div>
     </main>
     <script src="/static/account.js"></script>
   </body>

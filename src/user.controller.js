@@ -17,33 +17,33 @@ exports.Signup = async (req, res) => {
     const result = userSchema.validate(req.body);
     if (result.error) {
       console.log(result.error.message)
-      return res.json({
+      return res.send(400,{
         error: true,
-        status: 400,
         message: result.error.message
       })
-    }
+    } else {
 
-    let user = await User.find(result.value.username)
+      let user = await User.find(result.value.username)
 
-    if (user) {
-      return res.json({
-        error: true,
-        message: "User already registered"
+      if (user) {
+        return res.status(400).json({
+          error: true,
+          message: "User already registered"
+        })
+      }
+
+      const hash = await User.hashPassword(result.value.password)
+      delete result.value.confirmPassword
+      result.value.password = hash
+
+      const newUser = new User(result.value.username, result.value.password, result.value.admin)
+      newUser.save()
+
+      return res.status(200).json({
+        success: true,
+        message: "Registration Success",
       })
     }
-
-    const hash = await User.hashPassword(result.value.password)
-    delete result.value.confirmPassword
-    result.value.password = hash
-
-    const newUser = new User(result.value.username, result.value.password, result.value.admin)
-    newUser.save()
-
-    return res.status(200).json({
-      success: true,
-      message: "Registration Success",
-    })
 
   } catch (error) {
     console.error("Signup Error", error);
