@@ -147,3 +147,8 @@ label {
   line-height: 100%;
   margin: 0;
 }
+
+#account-delete-form {
+  position: inherit;
+  
+}

@@ -1,4 +1,5 @@
 const createSubmit = document.getElementById('create-submit')
+const deleteSubmit = document.getElementById('delete-submit')
 
 createSubmit.addEventListener('click', (e)=>{
   const username = document.getElementById('username').value
@@ -35,4 +36,22 @@ createSubmit.addEventListener('click', (e)=>{
       form.reset()
     }
   })
+})
+
+deleteSubmit.addEventListener('click', async e=>{
+  const form = document.getElementById('account-delete-form')
+  const username = document.getElementById('username-del')
+  const checkConfirm = await confirm(`Are you sure you want to delete '${username.value}'?\nThis action cannot be undone.`)
+  if (checkConfirm) {
+    fetch('/users/delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: username.value}),
+    })
+    .then(response => response.json())
+    .then(data => {
+      form.reset()
+      return console.log(data)}
+    )
+  }
 })

@@ -3,6 +3,8 @@ const morgan = require('morgan');
 const rateLimit = require('express-rate-limit')
 const cookieParser = require('cookie-parser')
 const jwt = require('jsonwebtoken')
+const AuthController = require('./src/user.controller')
+const fs = require('fs')
 require('dotenv').config()
 
 const tokenSecret = process.env.JWT_SECRET
@@ -61,12 +63,72 @@ app.get('/ip-data', async (req, res)=> {
   }
 })
 
+app.get('/ip-data/json', async (req, res)=> {
+  let vari = await jwtVerify(req, res)
+  if (vari.status) {
+    const ip = require('./ip.json')
+    const port = require('./port.json')
+    const data = {...ip, ...port}
+    return res.json(data)
+  } else {
+    return res.status(401)
+  }
+})
+
+app.post('/ip-data', async (req, res)=> {
+  let vari = await jwtVerify(req, res)
+  if (vari.status) {
+    if (req.body.type === 'ip') {
+      let ip = {
+        address: req.body.address,
+        netmask: req.body.netmask,
+        gateway: req.body.gateway
+      }
+      fs.writeFile('./ip.json', JSON.stringify(ip), (err)=>{ if (err) {console.log(err)}})
+      return res.status(200).json({
+        success: true
+      })
+    } else if (req.body.type === 'port') {
+      let port = {
+        inbound: req.body.inbound,
+        outbound: req.body.outbound
+      }
+      fs.writeFile('./port.json', JSON.stringify(port), (err)=>{if (err) {console.log(err)}})
+      return res.status(200).json({
+        success: true
+      })
+    } else {
+      return res.status(500)
+    }
+  } else {
+    return res.status(401)
+  }
+})
+
 app.get('/logs', async (req, res)=> {
   let vari = await jwtVerify(req, res)
   if (vari.status) {
     return res.sendFile('./www/logs.html', { root: __dirname })
   } else {
     return res.redirect('/login')
+  }
+})
+
+app.get('/logs/ids', async (req, res)=> {
+  let vari = await jwtVerify(req, res)
+  if (vari.status) {
+    res.sendFile('./ids.csv', { root: __dirname })
+  } else {
+    return res.status(401)
+  }
+})
+
+app.get('/logs/bandwidth', async (req, res)=> {
+  let vari = await jwtVerify(req, res)
+  if (vari.status) {
+    res.sendFile('./bandwidth.csv', { root: __dirname })
+  } else {
+    return res.status(401)
   }
 })
 
@@ -90,6 +152,17 @@ app.get('/login', (req, res)=>{
 app.get('/logout', (req, res)=> {
   res.clearCookie('authToken')
   return res.redirect('/login')
+})
+
+app.post('/users/login', AuthController.Login)
+
+app.use('/users', async (req, res, next)=> {
+    let vari = await jwtVerify(req, res)
+    if (vari.status) {
+      next()
+    } else {
+      return res.status(401)
+    }
 })
 
 app.use('/users', require('./routes/users'))

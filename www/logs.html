@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CKUR Video Camera Security</title>
-    <link rel="stylesheet" href="./global.css">
+    <link rel="stylesheet" href="./static/global.css">
   </head>
   <body>
     <header>
@@ -37,7 +37,7 @@
               <label for="ids-end-date">To:</label>
               <input type="date" id="ids-end-date" name="ids" disabled>
             </p>
-            <input type="submit" id="ids-submit" class="submit" value="Download to CSV">
+            <a id="ids-submit" class="submit" download href="/logs/ids">Download to CSV</a>
           </fieldset>
         </form>
       </div>
@@ -57,11 +57,11 @@
               <label for="bnd-end-date">To:</label>
               <input type="date" id="bnd-end-date" name="bndw" disabled>
             </p>
-            <input type="submit" id="bnd-submit" class="submit" value="Download to CSV">
+            <a id="bnd-submit" class="submit" download href="/logs/bandwidth">Download to CSV</a>
           </fieldset>
         </form>
       </div>
     </main>
-	  <script src="/logs.js"></script>
+	  <script src="/static/logs.js"></script>
   </body>
 </html>

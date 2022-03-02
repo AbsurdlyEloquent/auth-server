@@ -134,3 +134,30 @@ exports.Reset = async (req, res)=>{
     })
   }
 }
+
+exports.Delete = async (req, res)=>{
+  try {
+    const username = req.body.username
+    const user = await User.find(username)
+
+    if (!user) {
+      return res.status(404).json({
+        error: true,
+        message: "Account not found"
+      })
+    }
+
+    const deleted = await User.remove(username)
+    console.log(deleted)
+    return res.status(200).json({
+      success: true,
+      deletedUser: deleted
+    })
+  } catch (error) {
+    console.error("User deletion error", error)
+    return res.status(500).json({
+      error: true,
+      message: "Unable to process request"
+    })
+  }
+}
