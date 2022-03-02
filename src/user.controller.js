@@ -2,8 +2,10 @@ const Joi = require("joi");
 const jwt = require("jsonwebtoken")
 const User = require('../user/user.model')
 const generateJwt = require('./generateJwt')
+require('dotenv').config()
 
 const tokenSecret = process.env.JWT_SECRET
+
 
 const userSchema = Joi.object().keys({
   username: Joi.string().min(3).max(15).required(),
@@ -113,18 +115,46 @@ exports.Reset = async (req, res)=>{
   try {
     const token = req.cookies.authToken
 
-    const result = jwt.verify(token, tokenSecret, (err, decoded)=>{
+    const result = await jwt.verify(token, tokenSecret, (err, decoded)=>{
       if (err) {
-        return err
+        throw err
+      } else {
+        return {
+          admin: decoded.admin,
+          username: decoded.username,
+          status: true
       }
-      return {
-        username: decoded.username,
-        status: true
-      }
-    })
+    }})
 
     if (result.status) {
       const user = await User.find(result.username)
+      if (user) {
+        await User.remove(result.username)
+        const validated = userSchema.validate({
+          username: result.username,
+          password: req.body.newPassword,
+          confirmPassword: req.body.repeatPassword,
+          admin: result.admin
+        });
+        if (validated.error) {
+          console.log(validated.error.message)
+          return res.send(400,{
+            error: true,
+            message: result.error.message
+          })
+        } else {
+          const hash = await User.hashPassword(validated.value.password)
+          console.log(hash)
+          const newUser = new User(validated.value.username, hash, validated.value.admin)
+          newUser.save()
+
+          return res.status(200).json({
+            success: true
+          })
+        }
+      } else {
+        throw "user not found"
+      }
     }
   } catch (error) {
     console.error("Password Reset Error", error)

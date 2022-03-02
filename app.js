@@ -155,6 +155,7 @@ app.get('/logout', (req, res)=> {
 })
 
 app.post('/users/login', AuthController.Login)
+app.post('/users/reset', AuthController.Reset)
 
 app.use('/users', async (req, res, next)=> {
     let vari = await jwtVerify(req, res)
