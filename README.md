@@ -12,3 +12,12 @@
 `sudo setcap cap_net_bind_service=+ep /path/to/node`
 
 *The path to node can be found using `which node`*
+- Install node dependencies
+
+*from the application directory*
+
+`sudo npm install`
+
+## To Run the Application
+
+`npm start`
